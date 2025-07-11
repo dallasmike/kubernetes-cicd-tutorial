@@ -39,18 +39,17 @@ jobs:
           rm -rf gitops
           
           # Clone repository using HTTPS URL without token
-          git clone https://github.com/rslim087a/grade-api-gitops.git gitops
+          git clone https://github.com/dallasmike/grade-api-gitops.git gitops
           cd gitops
 
-          cat deployment.yaml
           echo ####
           echo ${{ github.repository }}
           echo $OSTYPE
-          #if [[ "$OSTYPE" == "darwin"* ]]; then
+          if [[ "$OSTYPE" == "darwin"* ]]; then
             sed -i '' "s|image: ghcr.io/${{ github.repository }}:.*|image: ghcr.io/${{ github.repository }}:${{ github.sha }}|g" deployment.yaml
-          #else
+          else
             #sed -i "s|image: ghcr.io/${{ github.repository }}:.*|image: ghcr.io/${{ github.repository }}:${{ github.sha }}|g" deployment.yaml
-          #fi
+          fi
 
           cat deployment.yaml
           
@@ -61,4 +60,4 @@ jobs:
           git commit -m "Update image to ${{ github.sha }}"
           
           # Push
-          git push -f https://${GIT_TOKEN}@github.com/rslim087a/grade-api-gitops.git main
+          git push -f https://${GIT_TOKEN}@github.com/dallasmike/grade-api-gitops.git main
