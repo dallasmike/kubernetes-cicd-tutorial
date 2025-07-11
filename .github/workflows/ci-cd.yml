@@ -43,7 +43,9 @@ jobs:
           cd gitops
 
           cat deployment.yaml
-          
+          echo ####
+          echo ${{ github.repository }}
+          echo $OSTYPE
           #if [[ "$OSTYPE" == "darwin"* ]]; then
             sed -i '' "s|image: ghcr.io/${{ github.repository }}:.*|image: ghcr.io/${{ github.repository }}:${{ github.sha }}|g" deployment.yaml
           #else
